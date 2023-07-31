@@ -85,7 +85,20 @@ export function AuthProvider({ children }: AuthProviderProps){
   }
 
   async function singUp({ name, email, password }: SingUpProps){
-    console.log(name)
+    try {
+      const response = await api.post('/users', {
+        name,
+        email,
+        password
+      })
+
+      console.log("Cadastro realizado com sucesso!")
+
+      Router.push('/')
+      
+    }catch(err){
+      console.log("Erro ao cadastrar", err)
+    }
   }
 
   return(
