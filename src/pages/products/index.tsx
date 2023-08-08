@@ -1,9 +1,33 @@
+import { useState, ChangeEvent } from 'react';
 import Head from 'next/head';
 import styles from './styles.module.scss';
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import { Header } from '../../components/Header';
+import { FiUpload } from 'react-icons/fi';
 
 export default function Product(){
+
+    const [avatar, setAvatar] = useState("");
+    const[image, setImage] = useState(null);
+
+    function handleFile(e: ChangeEvent<HTMLInputElement>){
+
+        if(!e.target.files){
+            return;
+        }
+
+        const image = e.target.files[0];
+
+        if(!image){
+            return;
+        }
+
+        if(image.type === 'image/jpeg' || image.type === "image/png"){
+            setImage(image);
+            setAvatar(URL.createObjectURL(e.target.files[0]))
+        }
+    }
+
     return(
         <>
             <Head>
@@ -17,6 +41,26 @@ export default function Product(){
                     <h1>Novo produto</h1>
 
                     <form className={styles.form}>
+
+                        <label className={styles.label}>
+                            <span>
+                                <FiUpload size={30} color="#fff"/>
+                            </span>
+
+                            <input type="file" accept='image/png, image/jpeg' onChange={handleFile} />
+
+                            {avatar && (
+                                <img
+                                    src={avatar}
+                                    className={styles.preview}
+                                    alt="Foto"
+                                    width={250}
+                                    height={250}
+                                />
+                            )}
+                        </label>
+
+
                         <select>
                             <option>Bebidas</option>
                             <option>Pizzas</option>
