@@ -21,7 +21,7 @@ export function ModalOrder({ isOpen, onRequestClose, order  }: ModalOrderProps){
       right: 'auto',
       padding: '30px',
       transform: 'translate(-50%, -50%)',
-      backgroundColor: '#1d1d2e'
+      backgroundColor: 'var(--dark-900)'
     }
   };
 
@@ -54,6 +54,10 @@ export function ModalOrder({ isOpen, onRequestClose, order  }: ModalOrderProps){
           <span className={styles.description}>{item.product.description}</span>
         </section>
       ))}
+
+      <button className={styles.buttonOrder} onClick={ () => {}}>
+        Concluir pedidio
+      </button>
 
 
     </div>
